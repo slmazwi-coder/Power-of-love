@@ -1,0 +1,93 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    // Collection: applications
+    // Fields: applicationNumber, status, studentNumber, learnerInfo, parentInfo, healthHistory, documents, consent, createdAt, notes
+    //
+    // Collection: payments
+    // Fields: invoiceNumber, type, learnerName, studentNumber, grade, amount, period, status, method, proofUrl, createdAt
+    //
+    // Collection: products
+    // Fields: name, description, price, category, variants, imageUrl
+    //
+    // Collection: documents
+    // Fields: title, category, url, publishDate, visibility, grades, pinned
+    //
+    // Collection: staff
+    // Fields: name, role, photoUrl, grade
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && 
+        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' ||
+         (request.auth.token.email == "nkomakhe@gmail.com" && request.auth.token.email_verified == true));
+    }
+
+    function isValidApplication(data) {
+      return data.applicationNumber is string &&
+             data.status in ["Received", "In Review", "Missing Docs", "Accepted", "Waitlisted", "Rejected"] &&
+             data.learnerInfo is map &&
+             data.parentInfo is map &&
+             data.healthHistory is map &&
+             data.consent is map;
+    }
+
+    function isValidPayment(data) {
+      return data.invoiceNumber is string &&
+             data.type in ["Fee", "Shop"] &&
+             data.amount is number && data.amount > 0 &&
+             data.status in ["Pending", "Paid", "Failed"] &&
+             data.method in ["PayFast", "EFT"];
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    // Applications: Public can create, Admin can read/write
+    match /applications/{applicationId} {
+      allow create: if isValidApplication(request.resource.data);
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Payments: Public can create, Admin can read/write
+    match /payments/{paymentId} {
+      allow create: if isValidPayment(request.resource.data);
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Products: Public can read, Admin can write
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Documents: Public can read (if published), Admin can write
+    match /documents/{docId} {
+      allow read: if resource.data.visibility == 'Published' || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // Staff: Public can read, Admin can write
+    match /staff/{staffId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Users: Admin can read/write, Users can read their own
+    match /users/{userId} {
+      allow read: if request.auth.uid == userId || isAdmin();
+      allow write: if isAdmin();
+    }
+  }
+}

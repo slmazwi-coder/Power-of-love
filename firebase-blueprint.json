@@ -1,0 +1,124 @@
+{
+  "entities": {
+    "Application": {
+      "title": "Student Application",
+      "description": "Student application for admission",
+      "type": "object",
+      "properties": {
+        "applicationNumber": { "type": "string" },
+        "status": { "type": "string", "enum": ["Received", "In Review", "Missing Docs", "Accepted", "Waitlisted", "Rejected"] },
+        "studentNumber": { "type": "string" },
+        "learnerInfo": {
+          "type": "object",
+          "properties": {
+            "firstName": { "type": "string" },
+            "surname": { "type": "string" },
+            "dob": { "type": "string" },
+            "grade": { "type": "string" },
+            "gender": { "type": "string" },
+            "address": { "type": "string" },
+            "previousSchool": { "type": "string" }
+          }
+        },
+        "parentInfo": {
+          "type": "object",
+          "properties": {
+            "guardianName": { "type": "string" },
+            "guardianPhone": { "type": "string" },
+            "guardianEmail": { "type": "string" },
+            "emergencyContact": { "type": "string" }
+          }
+        },
+        "healthHistory": {
+          "type": "object",
+          "properties": {
+            "allergies": { "type": "string" },
+            "conditions": { "type": "string" },
+            "medication": { "type": "string" },
+            "disabilities": { "type": "string" },
+            "doctorDetails": { "type": "string" },
+            "emergencyConsent": { "type": "boolean" }
+          }
+        },
+        "documents": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "consent": {
+          "type": "object",
+          "properties": {
+            "popia": { "type": "boolean" },
+            "policy": { "type": "boolean" },
+            "photoConsent": { "type": "string", "enum": ["Yes", "No"] }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "notes": { "type": "string" }
+      },
+      "required": ["applicationNumber", "status", "learnerInfo", "parentInfo", "healthHistory", "consent"]
+    },
+    "Payment": {
+      "title": "Payment Record",
+      "description": "School fee or shop payment record",
+      "type": "object",
+      "properties": {
+        "invoiceNumber": { "type": "string" },
+        "type": { "type": "string", "enum": ["Fee", "Shop"] },
+        "learnerName": { "type": "string" },
+        "studentNumber": { "type": "string" },
+        "grade": { "type": "string" },
+        "amount": { "type": "number" },
+        "period": { "type": "string" },
+        "status": { "type": "string", "enum": ["Pending", "Paid", "Failed"] },
+        "method": { "type": "string", "enum": ["PayFast", "EFT"] },
+        "proofUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Product": {
+      "title": "Shop Product",
+      "description": "Uniform or merchandise item",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "category": { "type": "string" },
+        "variants": { "type": "array", "items": { "type": "string" } },
+        "imageUrl": { "type": "string" }
+      }
+    },
+    "Document": {
+      "title": "School Document",
+      "description": "Public school document or newsletter",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "url": { "type": "string" },
+        "publishDate": { "type": "string", "format": "date" },
+        "visibility": { "type": "string", "enum": ["Published", "Draft", "Archived"] },
+        "grades": { "type": "array", "items": { "type": "string" } },
+        "pinned": { "type": "boolean" }
+      }
+    },
+    "Staff": {
+      "title": "Staff Member",
+      "description": "Teacher or staff member",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "photoUrl": { "type": "string" },
+        "grade": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "applications": { "schema": "Application", "description": "Student applications" },
+    "payments": { "schema": "Payment", "description": "Fee and shop payments" },
+    "products": { "schema": "Product", "description": "Uniform shop products" },
+    "documents": { "schema": "Document", "description": "Public documents" },
+    "staff": { "schema": "Staff", "description": "School staff members" }
+  }
+}

@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight, GraduationCap, BookOpen, Users, Trophy, CheckCircle, Sparkles } from 'lucide-react';
+import { motion } from 'motion/react';
+import { ArrowRight, BookOpen, Users, Trophy } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SCHOOL_INFO } from '../constants';
 
 const HERO_IMAGES = [
-  "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=1920",
-  "https://images.unsplash.com/photo-1523050335392-9bc567597280?auto=format&fit=crop&q=80&w=1920",
-  "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=1920",
-  "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&q=80&w=1920"
+  '/Hero/FB_IMG_1775476078612.jpg',
+  '/Hero/FB_IMG_1775476115838.jpg',
+  '/Hero/FB_IMG_1775476175024.jpg',
+  '/Hero/FB_IMG_1775476221490.jpg',
+  '/Hero/FB_IMG_1775476260293.jpg',
 ];
 
 export default function Home() {
@@ -27,9 +28,9 @@ export default function Home() {
       <section className="relative h-[80vh] flex items-center overflow-hidden bg-navy-950">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          <img 
-            src={HERO_IMAGES[0]} 
-            alt="School Environment" 
+          <img
+            src={HERO_IMAGES[currentImage]}
+            alt="School Environment"
             className="w-full h-full object-cover opacity-40"
             referrerPolicy="no-referrer"
           />
@@ -37,63 +38,57 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+          <motion.div
+            initial= opacity: 0, y: 20 
+            animate= opacity: 1, y: 0 
+            transition= duration: 0.6 
             className="max-w-4xl mx-auto"
           >
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
+            <motion.div
+              initial= opacity: 0, scale: 0.9 
+              animate= opacity: 1, scale: 1 
+              transition= duration: 0.6, delay: 0.1 
               className="mb-10 inline-block"
             >
               <div className="relative">
-                <img 
-                  src="/image001.jpg" 
-                  alt="Power of Love Logo" 
+                <img
+                  src="/Logo.jpg"
+                  alt="Power of Love Logo"
                   className="relative w-28 h-28 object-contain bg-white p-3 rounded-3xl shadow-xl"
                   referrerPolicy="no-referrer"
                 />
               </div>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-            >
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-bold uppercase tracking-widest mb-8">
-                Admissions Open for 2027
-              </div>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-bold uppercase tracking-widest mb-8">
+              Admissions Open for 2027
+            </div>
 
-              <h1 className="text-5xl md:text-7xl font-black mb-8 leading-[1.1] tracking-tight text-white">
-                Power of Love <br />
-                <span className="text-blue-400">Primary School</span>
-              </h1>
+            <h1 className="text-5xl md:text-7xl font-black mb-8 leading-[1.1] tracking-tight text-white">
+              Power of Love <br />
+              <span className="text-blue-400">Primary School</span>
+            </h1>
 
-              <p className="text-xl md:text-2xl text-navy-100 mb-12 leading-relaxed font-medium max-w-2xl mx-auto opacity-90">
-                "{SCHOOL_INFO.motto}"
-                <span className="block mt-4 text-lg font-normal text-navy-200 italic">Quality education and strong values.</span>
-              </p>
+            <p className="text-xl md:text-2xl text-navy-100 mb-12 leading-relaxed font-medium max-w-2xl mx-auto opacity-90">
+              "{SCHOOL_INFO.motto}"
+              <span className="block mt-4 text-lg font-normal text-navy-200 italic">Quality education and strong values.</span>
+            </p>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                <Link 
-                  to="/admissions" 
-                  className="px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-500 transition-all flex items-center gap-3 shadow-xl"
-                >
-                  <span>Apply Online Now</span>
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
-                <Link 
-                  to="/about" 
-                  className="px-10 py-5 bg-white/10 border border-white/20 text-white rounded-2xl font-bold hover:bg-white/20 transition-all"
-                >
-                  Explore Our School
-                </Link>
-              </div>
-            </motion.div>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+              <Link
+                to="/admissions"
+                className="px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-500 transition-all flex items-center gap-3 shadow-xl"
+              >
+                <span>Apply Online Now</span>
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+              <Link
+                to="/about"
+                className="px-10 py-5 bg-white/10 border border-white/20 text-white rounded-2xl font-bold hover:bg-white/20 transition-all"
+              >
+                Explore Our School
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>

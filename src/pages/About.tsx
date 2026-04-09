@@ -1,4 +1,3 @@
-import { motion } from 'motion/react';
 import { SCHOOL_INFO } from '../constants';
 import { Users, Target, Eye, Quote } from 'lucide-react';
 
@@ -42,9 +41,9 @@ export default function About() {
               </div>
             </div>
             <div className="relative">
-              <img 
-                src="/FB_IMG_1775476115838.jpg" 
-                alt="School Activities" 
+              <img
+                src="/Hero/FB_IMG_1775476115838.jpg"
+                alt="School Activities"
                 className="rounded-3xl shadow-2xl relative z-10"
               />
             </div>
@@ -57,9 +56,9 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden flex flex-col md:flex-row">
             <div className="md:w-1/3">
-              <img 
-                src="/FB_IMG_1775476221490.jpg" 
-                alt="Principal" 
+              <img
+                src="/About/Principal/FB_IMG_1775476078612.jpg"
+                alt="Principal"
                 className="w-full h-full object-cover"
               />
             </div>

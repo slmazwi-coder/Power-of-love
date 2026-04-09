@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { SCHOOL_INFO } from '../constants';
-import { Mail, Phone, MapPin, GraduationCap } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -9,9 +9,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div className="col-span-1 md:col-span-1">
             <div className="flex items-center gap-3 mb-6">
-              <img 
-                src="/image001.jpg" 
-                alt="Power of Love Logo" 
+              <img
+                src="/Logo.jpg"
+                alt="Power of Love Logo"
                 className="w-12 h-12 object-contain brightness-0 invert"
                 referrerPolicy="no-referrer"
               />

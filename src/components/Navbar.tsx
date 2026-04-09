@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, GraduationCap } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { SCHOOL_INFO } from '../constants';
 
 const NAV_LINKS = [
   { name: 'Home', path: '/' },
@@ -27,9 +26,9 @@ export default function Navbar() {
         <div className="flex justify-between h-20">
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-3">
-              <img 
-                src="/image001.jpg" 
-                alt="Power of Love Logo" 
+              <img
+                src="/Logo.jpg"
+                alt="Power of Love Logo"
                 className="w-12 h-12 object-contain"
                 referrerPolicy="no-referrer"
               />

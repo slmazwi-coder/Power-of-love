@@ -33,17 +33,22 @@ export default function Home() {
 							alt="School Environment"
 							className="w-full h-full object-cover opacity-40"
 							referrerPolicy="no-referrer"
-							initial= opacity: 0 
-							animate= opacity: 1 
-							exit= opacity: 0 
-							transition= duration: 0.8, ease: 'easeOut' 
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							transition={{ duration: 0.8, ease: 'easeOut' }}
 						/>
 					</AnimatePresence>
 					<div className="absolute inset-0 bg-gradient-to-b from-navy-950/80 via-navy-950/60 to-navy-950" />
 				</div>
 
 				<div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-					<motion.div initial= opacity: 0, y: 30  animate= opacity: 1, y: 0  transition= duration: 0.8, ease: 'easeOut'  className="max-w-4xl mx-auto">
+					<motion.div
+						initial={{ opacity: 0, y: 30 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.8, ease: 'easeOut' }}
+						className="max-w-4xl mx-auto"
+					>
 						<div>
 							<div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-bold uppercase tracking-widest mb-8">
 								Admissions Open for 2027

@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 import { SCHOOL_INFO } from '../constants';
 
 const HERO_IMAGES = [
-  '/Hero/FB_IMG_1775476078612.jpg',
-  '/Hero/FB_IMG_1775476115838.jpg',
-  '/Hero/FB_IMG_1775476175024.jpg',
-  '/Hero/FB_IMG_1775476221490.jpg',
-  '/Hero/FB_IMG_1775476260293.jpg',
+  '/Public/Hero/FB_IMG_1775476078612.jpg',
+  '/Public/Hero/FB_IMG_1775476115838.jpg',
+  '/Public/Hero/FB_IMG_1775476175024.jpg',
+  '/Public/Hero/FB_IMG_1775476221490.jpg',
+  '/Public/Hero/FB_IMG_1775476260293.jpg',
 ];
 
 export default function Home() {
@@ -24,9 +24,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
       <section className="relative h-[80vh] flex items-center overflow-hidden bg-navy-950">
-        {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <AnimatePresence mode="wait">
             <motion.img
@@ -35,35 +33,20 @@ export default function Home() {
               alt="School Environment"
               className="w-full h-full object-cover opacity-40"
               referrerPolicy="no-referrer"
-              initial={{ opacity: 0.0 }}
-              animate={{ opacity: 0.4 }}
-              exit={{ opacity: 0.0 }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6 }}
             />
           </AnimatePresence>
           <div className="absolute inset-0 bg-gradient-to-b from-navy-950/80 via-navy-950/60 to-navy-950" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="max-w-4xl mx-auto"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              className="mb-10 inline-block"
-            >
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: 'easeOut' }} className="max-w-4xl mx-auto">
+            <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2, duration: 0.5 }} className="mb-10 inline-block">
               <div className="relative">
-                <img
-                  src="/Logo.jpg"
-                  alt="Power of Love Logo"
-                  className="relative w-28 h-28 object-contain bg-white p-3 rounded-3xl shadow-xl"
-                  referrerPolicy="no-referrer"
-                />
+                <img src="/Public/Logo.jpg" alt="Power of Love Logo" className="relative w-28 h-28 object-contain bg-white p-3 rounded-3xl shadow-xl" referrerPolicy="no-referrer" />
               </div>
             </motion.div>
 
@@ -83,17 +66,11 @@ export default function Home() {
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                <Link
-                  to="/admissions"
-                  className="px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-500 transition-all flex items-center gap-3 shadow-xl"
-                >
+                <Link to="/admissions" className="px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-500 transition-all flex items-center gap-3 shadow-xl">
                   <span>Apply Online Now</span>
                   <ArrowRight className="w-5 h-5" />
                 </Link>
-                <Link
-                  to="/about"
-                  className="px-10 py-5 bg-white/10 border border-white/20 text-white rounded-2xl font-bold hover:bg-white/20 transition-all"
-                >
+                <Link to="/about" className="px-10 py-5 bg-white/10 border border-white/20 text-white rounded-2xl font-bold hover:bg-white/20 transition-all">
                   Explore Our School
                 </Link>
               </div>
@@ -102,7 +79,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Section */}
       <section className="py-12 bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -126,7 +102,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section */}
       <section className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
@@ -140,9 +115,7 @@ export default function Home() {
                 <BookOpen className="w-6 h-6 text-navy-900" />
               </div>
               <h3 className="text-xl font-bold text-navy-900 mb-3">Academic Excellence</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Our curriculum is designed to challenge and inspire students from Grade 1A to 7B, ensuring they are well-prepared for high school.
-              </p>
+              <p className="text-gray-600 text-sm leading-relaxed">Our curriculum is designed to challenge and inspire students from Grade 1A to 7B, ensuring they are well-prepared for high school.</p>
             </div>
 
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
@@ -150,9 +123,7 @@ export default function Home() {
                 <Trophy className="w-6 h-6 text-navy-900" />
               </div>
               <h3 className="text-xl font-bold text-navy-900 mb-3">Sports & Culture</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                From Rugby to Chess, we offer a wide range of extracurricular activities to help students discover their passions.
-              </p>
+              <p className="text-gray-600 text-sm leading-relaxed">From Rugby to Chess, we offer a wide range of extracurricular activities to help students discover their passions.</p>
             </div>
 
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
@@ -160,15 +131,12 @@ export default function Home() {
                 <Users className="w-6 h-6 text-navy-900" />
               </div>
               <h3 className="text-xl font-bold text-navy-900 mb-3">Community Values</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                We foster a culture of love, respect, and integrity, creating a safe and supportive environment for every learner.
-              </p>
+              <p className="text-gray-600 text-sm leading-relaxed">We foster a culture of love, respect, and integrity, creating a safe and supportive environment for every learner.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="py-24 bg-navy-900 text-white overflow-hidden relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-2xl">

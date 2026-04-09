@@ -27,7 +27,7 @@ export default function Navbar() {
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-3">
               <img
-                src="/Logo.jpg"
+                src="/Public/Logo.jpg"
                 alt="Power of Love Logo"
                 className="w-12 h-12 object-contain"
                 referrerPolicy="no-referrer"
@@ -39,7 +39,6 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Desktop Nav */}
           <div className="hidden lg:flex items-center space-x-1">
             {NAV_LINKS.map((link) => (
               <Link
@@ -53,15 +52,11 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
-            <Link
-              to="/admin"
-              className="ml-4 px-4 py-2 bg-navy-900 text-white rounded-md text-sm font-medium hover:bg-navy-800 transition-colors"
-            >
+            <Link to="/admin" className="ml-4 px-4 py-2 bg-navy-900 text-white rounded-md text-sm font-medium hover:bg-navy-800 transition-colors">
               Admin
             </Link>
           </div>
 
-          {/* Mobile menu button */}
           <div className="lg:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -73,7 +68,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Nav */}
       {isOpen && (
         <div className="lg:hidden bg-white border-b border-gray-100">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">

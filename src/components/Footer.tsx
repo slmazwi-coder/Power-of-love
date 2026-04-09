@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-1">
             <div className="flex items-center gap-3 mb-6">
               <img
-                src="/Logo.jpg"
+                src="/Public/Logo.jpg"
                 alt="Power of Love Logo"
                 className="w-12 h-12 object-contain brightness-0 invert"
                 referrerPolicy="no-referrer"

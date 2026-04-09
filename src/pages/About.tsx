@@ -1,11 +1,9 @@
-import { motion } from 'motion/react';
 import { SCHOOL_INFO } from '../constants';
 import { Users, Target, Eye, Quote } from 'lucide-react';
 
 export default function About() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero */}
       <section className="bg-navy-900 py-24 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">About Our School</h1>
@@ -13,7 +11,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* History & Mission */}
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -40,18 +37,17 @@ export default function About() {
               </div>
             </div>
             <div className="relative">
-              <img src="/FB_IMG_1775476115838.jpg" alt="School Activities" className="rounded-3xl shadow-2xl relative z-10" />
+              <img src="/Public/FB_IMG_1775476115838.jpg" alt="School Activities" className="rounded-3xl shadow-2xl relative z-10" referrerPolicy="no-referrer" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Principal Message */}
       <section className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden flex flex-col md:flex-row">
             <div className="md:w-1/3">
-              <img src="/About/Principal/FB_IMG_1775476078612.jpg" alt="Principal" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              <img src="/Public/About/Principal/FB_IMG_1775476078612.jpg" alt="Principal" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             </div>
             <div className="md:w-2/3 p-12 flex flex-col justify-center">
               <Quote className="w-12 h-12 text-navy-100 mb-6" />
@@ -68,7 +64,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* Staff */}
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">

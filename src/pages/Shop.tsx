@@ -22,15 +22,14 @@ export default function Shop() {
     setCart(prev => {
       const existing = prev.find(item => item.id === productId && item.size === size);
       if (existing) {
-        return prev.map(item => 
-          (item.id === productId && item.size === size) 
-            ? { ...item, quantity: item.quantity + 1 } 
+        return prev.map(item =>
+          item.id === productId && item.size === size
+            ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       }
       return [...prev, { id: productId, size, quantity: 1 }];
     });
-    // Optional: Show a small toast or feedback
   };
 
   const removeFromCart = (productId: string, size: string) => {
@@ -62,8 +61,8 @@ export default function Shop() {
               <h3 className="font-bold text-navy-900 mb-4 flex items-center gap-2">
                 <Search className="w-4 h-4" /> Search
               </h3>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 placeholder="Find a product..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -76,7 +75,7 @@ export default function Shop() {
                 <Filter className="w-4 h-4" /> Categories
               </h3>
               <div className="space-y-2">
-                <button 
+                <button
                   onClick={() => setSelectedCategory(null)}
                   className={cn(
                     "w-full text-left px-3 py-2 rounded-lg text-sm transition-colors",
@@ -86,7 +85,7 @@ export default function Shop() {
                   All Items
                 </button>
                 {categories.map(cat => (
-                  <button 
+                  <button
                     key={cat}
                     onClick={() => setSelectedCategory(cat)}
                     className={cn(
@@ -129,9 +128,10 @@ export default function Shop() {
       </div>
 
       {/* Floating Cart Button */}
-      <button 
+      <button
         onClick={() => setShowCart(true)}
-        className="fixed bottom-8 right-8 w-16 h-16 bg-navy-900 text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform z-40"
+        className="fixed bottom-8 right-28 w-16 h-16 bg-navy-900 text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform z-40"
+        aria-label="Open cart"
       >
         <ShoppingCart className="w-6 h-6" />
         {cart.length > 0 && (
@@ -145,18 +145,18 @@ export default function Shop() {
       <AnimatePresence>
         {showCart && (
           <>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setShowCart(false)}
               className="fixed inset-0 bg-navy-900/60 backdrop-blur-sm z-50"
             />
-            <motion.div 
-              initial={{ x: '100%' }}
+            <motion.div
+              initial={{ x: 500 }}
               animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              exit={{ x: 500 }}
+              transition={{ duration: 0.3 }}
               className="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 flex flex-col"
             >
               <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-navy-900 text-white">
@@ -175,7 +175,7 @@ export default function Shop() {
                     <p className="text-gray-500">Your cart is empty</p>
                   </div>
                 ) : (
-                  cart.map((item, i) => {
+                  cart.map((item) => {
                     const product = UNIFORM_PRODUCTS.find(p => p.id === item.id);
                     if (!product) return null;
                     return (
@@ -186,7 +186,7 @@ export default function Shop() {
                         <div className="flex-grow">
                           <div className="flex justify-between">
                             <h4 className="font-bold text-navy-900 text-sm">{product.name}</h4>
-                            <button 
+                            <button
                               onClick={() => removeFromCart(item.id, item.size)}
                               className="text-gray-400 hover:text-red-500 transition-colors"
                             >
@@ -216,9 +216,7 @@ export default function Shop() {
                   <button className="w-full py-4 bg-navy-900 text-white rounded-xl font-bold hover:bg-navy-800 transition-all shadow-lg shadow-navy-900/20">
                     Proceed to Checkout
                   </button>
-                  <p className="text-[10px] text-center text-gray-400">
-                    Secure payment powered by PayFast
-                  </p>
+                  <p className="text-[10px] text-center text-gray-400">Secure payment powered by PayFast</p>
                 </div>
               )}
             </motion.div>
@@ -229,7 +227,7 @@ export default function Shop() {
   );
 }
 
-function ProductCard({ product, onAddToCart }: { product: typeof UNIFORM_PRODUCTS[0], onAddToCart: (id: string, size: string) => void }) {
+function ProductCard({ product, onAddToCart }: { product: typeof UNIFORM_PRODUCTS[0]; onAddToCart: (id: string, size: string) => void }) {
   const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
   const [isAdded, setIsAdded] = useState(false);
 
@@ -240,16 +238,16 @@ function ProductCard({ product, onAddToCart }: { product: typeof UNIFORM_PRODUCT
   };
 
   return (
-    <motion.div 
+    <motion.div
       layout
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
       className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition-all"
     >
       <div className="h-64 relative overflow-hidden bg-gray-100">
-        <img 
-          src={product.image} 
-          alt={product.name} 
+        <img
+          src={product.image}
+          alt={product.name}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           referrerPolicy="no-referrer"
         />
@@ -262,23 +260,19 @@ function ProductCard({ product, onAddToCart }: { product: typeof UNIFORM_PRODUCT
           <h3 className="text-lg font-bold text-navy-900">{product.name}</h3>
           <span className="text-lg font-black text-navy-900">R {product.price}</span>
         </div>
-        <p className="text-xs text-gray-500 mb-6 leading-relaxed line-clamp-2">
-          {product.description}
-        </p>
+        <p className="text-xs text-gray-500 mb-6 leading-relaxed line-clamp-2">{product.description}</p>
 
         <div className="space-y-4">
           <div>
             <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Select Size</label>
             <div className="flex flex-wrap gap-2">
               {product.sizes.map(size => (
-                <button 
+                <button
                   key={size}
                   onClick={() => setSelectedSize(size)}
                   className={cn(
                     "px-3 py-1.5 rounded-lg text-xs font-bold transition-all border",
-                    selectedSize === size 
-                      ? "bg-navy-900 text-white border-navy-900" 
-                      : "bg-white text-gray-600 border-gray-200 hover:border-navy-900"
+                    selectedSize === size ? "bg-navy-900 text-white border-navy-900" : "bg-white text-gray-600 border-gray-200 hover:border-navy-900"
                   )}
                 >
                   {size}
@@ -287,14 +281,12 @@ function ProductCard({ product, onAddToCart }: { product: typeof UNIFORM_PRODUCT
             </div>
           </div>
 
-          <button 
+          <button
             onClick={handleAdd}
             disabled={isAdded}
             className={cn(
               "w-full py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2",
-              isAdded 
-                ? "bg-green-500 text-white" 
-                : "bg-navy-900 text-white hover:bg-navy-800"
+              isAdded ? "bg-green-500 text-white" : "bg-navy-900 text-white hover:bg-navy-800"
             )}
           >
             {isAdded ? (

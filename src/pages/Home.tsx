@@ -33,38 +33,17 @@ export default function Home() {
 							alt="School Environment"
 							className="w-full h-full object-cover opacity-40"
 							referrerPolicy="no-referrer"
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							exit={{ opacity: 0 }}
-							transition={{ duration: 0.8, ease: 'easeOut' }}
+							initial= opacity: 0 
+							animate= opacity: 1 
+							exit= opacity: 0 
+							transition= duration: 0.8, ease: 'easeOut' 
 						/>
 					</AnimatePresence>
 					<div className="absolute inset-0 bg-gradient-to-b from-navy-950/80 via-navy-950/60 to-navy-950" />
 				</div>
 
 				<div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-					<motion.div
-						initial={{ opacity: 0, y: 30 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.8, ease: 'easeOut' }}
-						className="max-w-4xl mx-auto"
-					>
-						<motion.div
-							initial={{ opacity: 0, scale: 0.8 }}
-							animate={{ opacity: 1, scale: 1 }}
-							transition={{ delay: 0.2, duration: 0.5 }}
-							className="mb-10 inline-block"
-						>
-							<div className="relative">
-								<img
-									src="/Logo.jpg"
-									alt="Power of Love Logo"
-									className="relative w-28 h-28 object-contain bg-white p-3 rounded-3xl shadow-xl"
-									referrerPolicy="no-referrer"
-								/>
-							</div>
-						</motion.div>
-
+					<motion.div initial= opacity: 0, y: 30  animate= opacity: 1, y: 0  transition= duration: 0.8, ease: 'easeOut'  className="max-w-4xl mx-auto">
 						<div>
 							<div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-bold uppercase tracking-widest mb-8">
 								Admissions Open for 2027

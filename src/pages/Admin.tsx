@@ -1,19 +1,14 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
-import { 
-  LayoutDashboard, 
-  FileText, 
-  CreditCard, 
-  Users, 
-  FolderOpen, 
-  LogOut, 
-  Search, 
-  Filter, 
-  Download, 
-  CheckCircle, 
-  XCircle, 
-  Clock, 
-  MoreVertical,
+import {
+  LayoutDashboard,
+  FileText,
+  CreditCard,
+  Users,
+  FolderOpen,
+  LogOut,
+  Search,
+  Download,
   Plus,
   Trash2,
   Eye,
@@ -22,32 +17,22 @@ import {
   ChevronDown,
   ArrowUpDown
 } from 'lucide-react';
-import { auth, db } from '../lib/firebase';
-import { 
-  signInWithPopup, 
-  GoogleAuthProvider, 
-  onAuthStateChanged, 
-  signOut,
-  User
-} from 'firebase/auth';
-import { 
-  collection, 
-  query, 
-  getDocs, 
-  updateDoc, 
-  doc, 
-  orderBy, 
+import { db } from '../lib/firebase';
+import {
+  collection,
+  query,
+  getDocs,
+  updateDoc,
+  doc,
+  orderBy,
   where,
   deleteDoc,
   addDoc
 } from 'firebase/firestore';
-import { Application, Payment, Product, SchoolDocument, Staff } from '../types';
+import { Application, Payment, SchoolDocument } from '../types';
 import { cn } from '../lib/utils';
-import { GRADES } from '../constants';
 
-// --- Admin Components ---
-
-const AdminSidebar = ({ user, onLogout }: { user: any, onLogout: () => void }) => {
+const AdminSidebar = ({ user, onLogout }: { user: any; onLogout: () => void }) => {
   const location = useLocation();
   const navItems = [
     { name: 'Dashboard', path: '/admin', icon: LayoutDashboard },
@@ -60,25 +45,23 @@ const AdminSidebar = ({ user, onLogout }: { user: any, onLogout: () => void }) =
   return (
     <div className="w-64 bg-navy-900 text-white h-screen sticky top-0 flex flex-col">
       <div className="p-6 border-b border-navy-800 flex items-center gap-3">
-        <img 
-          src="/image001.jpg" 
-          alt="Logo" 
-          className="w-8 h-8 object-contain brightness-0 invert"
+        <img
+          src="/Logo.jpg"
+          alt="Logo"
+          className="w-8 h-8 object-contain bg-white rounded-md p-1"
           referrerPolicy="no-referrer"
         />
         <span className="font-bold tracking-tight">Admin Portal</span>
       </div>
-      
+
       <nav className="flex-grow p-4 space-y-1">
         {navItems.map((item) => (
           <Link
             key={item.path}
             to={item.path}
             className={cn(
-              "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all",
-              location.pathname === item.path 
-                ? "bg-white text-navy-900 shadow-lg" 
-                : "text-navy-300 hover:bg-navy-800 hover:text-white"
+              'flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all',
+              location.pathname === item.path ? 'bg-white text-navy-900 shadow-lg' : 'text-navy-300 hover:bg-navy-800 hover:text-white'
             )}
           >
             <item.icon className="w-5 h-5" />
@@ -95,7 +78,7 @@ const AdminSidebar = ({ user, onLogout }: { user: any, onLogout: () => void }) =
             <span className="text-[10px] text-navy-400 truncate">{user.email}</span>
           </div>
         </div>
-        <button 
+        <button
           onClick={onLogout}
           className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-red-400 hover:bg-red-400/10 transition-all"
         >
@@ -124,16 +107,10 @@ const Dashboard = () => {
       <h1 className="text-3xl font-bold text-navy-900">Dashboard Overview</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-          <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-4">
-            <FileText className="w-6 h-6 text-blue-600" />
-          </div>
           <div className="text-3xl font-bold text-navy-900">{stats.apps}</div>
           <div className="text-sm text-gray-500 font-medium uppercase tracking-wider mt-1">Total Applications</div>
         </div>
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-          <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center mb-4">
-            <CreditCard className="w-6 h-6 text-green-600" />
-          </div>
           <div className="text-3xl font-bold text-navy-900">{stats.payments}</div>
           <div className="text-sm text-gray-500 font-medium uppercase tracking-wider mt-1">Fee Payments</div>
         </div>
@@ -147,14 +124,14 @@ const ApplicationsManager = () => {
   const [loading, setLoading] = useState(true);
   const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'asc' | 'desc' }>({
     key: 'createdAt',
-    direction: 'desc'
+    direction: 'desc',
   });
 
   useEffect(() => {
     const fetchApps = async () => {
       const q = query(collection(db, 'applications'), orderBy('createdAt', 'desc'));
       const snapshot = await getDocs(q);
-      setApps(snapshot.docs.map(d => ({ id: d.id, ...d.data() } as Application)));
+      setApps(snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as Application)));
       setLoading(false);
     };
     fetchApps();
@@ -200,34 +177,40 @@ const ApplicationsManager = () => {
 
   const getSortIcon = (key: string) => {
     if (sortConfig.key !== key) return <ArrowUpDown className="w-3 h-3 ml-1 opacity-30" />;
-    return sortConfig.direction === 'asc' 
-      ? <ChevronUp className="w-3 h-3 ml-1 text-navy-900" /> 
-      : <ChevronDown className="w-3 h-3 ml-1 text-navy-900" />;
+    return sortConfig.direction === 'asc' ? <ChevronUp className="w-3 h-3 ml-1 text-navy-900" /> : <ChevronDown className="w-3 h-3 ml-1 text-navy-900" />;
   };
 
   const updateStatus = async (id: string, status: string) => {
     await updateDoc(doc(db, 'applications', id), { status });
-    setApps(apps.map(a => a.id === id ? { ...a, status: status as any } : a));
+    setApps(apps.map((a) => (a.id === id ? { ...a, status: status as any } : a)));
   };
 
   const exportCSV = () => {
     const headers = ['App Number', 'Student Name', 'Grade', 'Status', 'Parent Name', 'Parent Email', 'Parent Phone'];
-    const rows = apps.map(a => [
+    const rows = apps.map((a) => [
       a.applicationNumber,
       `${a.learnerInfo.firstName} ${a.learnerInfo.surname}`,
       a.learnerInfo.grade,
       a.status,
       a.parentInfo.guardianName,
       a.parentInfo.guardianEmail,
-      a.parentInfo.guardianPhone
+      a.parentInfo.guardianPhone,
     ]);
-    const csvContent = [headers, ...rows].map(e => e.join(",")).join("\n");
+    const csvContent = [headers, ...rows].map((e) => e.join(',')).join('\n');
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement("a");
+    const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
     link.download = `applications_${new Date().toISOString().split('T')[0]}.csv`;
     link.click();
   };
+
+  if (loading) {
+    return (
+      <div className="p-8 flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-navy-900 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="p-8 space-y-8">
@@ -242,34 +225,19 @@ const ApplicationsManager = () => {
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-gray-50 border-b border-gray-100">
-              <th 
-                className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
-                onClick={() => requestSort('applicationNumber')}
-              >
+              <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors" onClick={() => requestSort('applicationNumber')}>
                 <div className="flex items-center">App Number {getSortIcon('applicationNumber')}</div>
               </th>
-              <th 
-                className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
-                onClick={() => requestSort('learner')}
-              >
+              <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors" onClick={() => requestSort('learner')}>
                 <div className="flex items-center">Learner {getSortIcon('learner')}</div>
               </th>
-              <th 
-                className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
-                onClick={() => requestSort('grade')}
-              >
+              <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors" onClick={() => requestSort('grade')}>
                 <div className="flex items-center">Grade {getSortIcon('grade')}</div>
               </th>
-              <th 
-                className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
-                onClick={() => requestSort('status')}
-              >
+              <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors" onClick={() => requestSort('status')}>
                 <div className="flex items-center">Status {getSortIcon('status')}</div>
               </th>
-              <th 
-                className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
-                onClick={() => requestSort('createdAt')}
-              >
+              <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors" onClick={() => requestSort('createdAt')}>
                 <div className="flex items-center">Date {getSortIcon('createdAt')}</div>
               </th>
               <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Actions</th>
@@ -285,24 +253,20 @@ const ApplicationsManager = () => {
                 </td>
                 <td className="p-4 text-sm text-gray-600">{app.learnerInfo.grade}</td>
                 <td className="p-4">
-                  <select 
+                  <select
                     value={app.status}
                     onChange={(e) => updateStatus(app.id!, e.target.value)}
                     className={cn(
-                      "text-xs font-bold px-3 py-1 rounded-full border-0 focus:ring-2 focus:ring-navy-900",
-                      app.status === 'Accepted' ? "bg-green-100 text-green-700" :
-                      app.status === 'Rejected' ? "bg-red-100 text-red-700" :
-                      "bg-blue-100 text-blue-700"
+                      'text-xs font-bold px-3 py-1 rounded-full border-0 focus:ring-2 focus:ring-navy-900',
+                      app.status === 'Accepted' ? 'bg-green-100 text-green-700' : app.status === 'Rejected' ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700'
                     )}
                   >
-                    {["Received", "In Review", "Missing Docs", "Accepted", "Waitlisted", "Rejected"].map(s => (
+                    {['Received', 'In Review', 'Missing Docs', 'Accepted', 'Waitlisted', 'Rejected'].map((s) => (
                       <option key={s} value={s}>{s}</option>
                     ))}
                   </select>
                 </td>
-                <td className="p-4 text-sm text-gray-500">
-                  {new Date(app.createdAt).toLocaleDateString()}
-                </td>
+                <td className="p-4 text-sm text-gray-500">{new Date(app.createdAt).toLocaleDateString()}</td>
                 <td className="p-4">
                   <button className="p-2 text-gray-400 hover:text-navy-900 transition-colors">
                     <Eye className="w-5 h-5" />
@@ -323,21 +287,21 @@ const PaymentsManager = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'asc' | 'desc' }>({
     key: 'createdAt',
-    direction: 'desc'
+    direction: 'desc',
   });
 
   useEffect(() => {
     const fetchPayments = async () => {
       const q = query(collection(db, 'payments'), orderBy('createdAt', 'desc'));
       const snapshot = await getDocs(q);
-      setPayments(snapshot.docs.map(d => ({ id: d.id, ...d.data() } as Payment)));
+      setPayments(snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as Payment)));
       setLoading(false);
     };
     fetchPayments();
   }, []);
 
   const filteredAndSortedPayments = useMemo(() => {
-    let filtered = payments.filter(p => 
+    let filtered = payments.filter((p) =>
       p.learnerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       p.studentNumber?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       p.invoiceNumber.toLowerCase().includes(searchTerm.toLowerCase())
@@ -371,32 +335,16 @@ const PaymentsManager = () => {
 
   const getSortIcon = (key: string) => {
     if (sortConfig.key !== key) return <ArrowUpDown className="w-3 h-3 ml-1 opacity-30" />;
-    return sortConfig.direction === 'asc' 
-      ? <ChevronUp className="w-3 h-3 ml-1 text-navy-900" /> 
-      : <ChevronDown className="w-3 h-3 ml-1 text-navy-900" />;
+    return sortConfig.direction === 'asc' ? <ChevronUp className="w-3 h-3 ml-1 text-navy-900" /> : <ChevronDown className="w-3 h-3 ml-1 text-navy-900" />;
   };
 
-  const studentSummaries = useMemo(() => {
-    const summaries: Record<string, { name: string, total: number, count: number, studentNumber?: string }> = {};
-    
-    payments.forEach(p => {
-      if (p.status !== 'Paid') return;
-      const key = p.studentNumber || p.learnerName;
-      if (!summaries[key]) {
-        summaries[key] = { name: p.learnerName, total: 0, count: 0, studentNumber: p.studentNumber };
-      }
-      summaries[key].total += p.amount;
-      summaries[key].count += 1;
-    });
-    
-    return Object.values(summaries).sort((a, b) => b.total - a.total);
-  }, [payments]);
-
-  if (loading) return (
-    <div className="p-8 flex items-center justify-center">
-      <div className="w-8 h-8 border-4 border-navy-900 border-t-transparent rounded-full animate-spin" />
-    </div>
-  );
+  if (loading) {
+    return (
+      <div className="p-8 flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-navy-900 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="p-8 space-y-8">
@@ -404,9 +352,9 @@ const PaymentsManager = () => {
         <h1 className="text-3xl font-bold text-navy-900">Payment Management</h1>
         <div className="relative w-full md:w-96">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-          <input 
-            type="text" 
-            placeholder="Search by student name, number or invoice..." 
+          <input
+            type="text"
+            placeholder="Search by student name, number or invoice..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-200 focus:ring-2 focus:ring-navy-900 outline-none transition-all"
@@ -414,50 +362,6 @@ const PaymentsManager = () => {
         </div>
       </div>
 
-      {/* Summary Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-          <h2 className="text-lg font-bold text-navy-900 mb-4">Student Payment Summary</h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left">
-              <thead>
-                <tr className="text-xs font-bold text-gray-400 uppercase tracking-wider border-b border-gray-50">
-                  <th className="pb-3">Student</th>
-                  <th className="pb-3">Total Paid</th>
-                  <th className="pb-3">Transactions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-50">
-                {studentSummaries.slice(0, 5).map((s, i) => (
-                  <tr key={i} className="text-sm">
-                    <td className="py-3">
-                      <div className="font-bold text-navy-900">{s.name}</div>
-                      <div className="text-xs text-gray-500">{s.studentNumber || 'No Student #'}</div>
-                    </td>
-                    <td className="py-3 font-bold text-green-600">R {s.total.toLocaleString()}</td>
-                    <td className="py-3 text-gray-600">{s.count}</td>
-                  </tr>
-                ))}
-                {studentSummaries.length === 0 && (
-                  <tr>
-                    <td colSpan={3} className="py-8 text-center text-gray-400 text-sm italic">No successful payments found</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div className="bg-navy-900 rounded-2xl p-6 text-white flex flex-col justify-center shadow-xl shadow-navy-900/20">
-          <div className="text-navy-300 text-xs font-bold uppercase tracking-wider mb-2">Total Revenue</div>
-          <div className="text-4xl font-bold">R {payments.filter(p => p.status === 'Paid').reduce((acc, p) => acc + p.amount, 0).toLocaleString()}</div>
-          <div className="mt-4 text-xs text-navy-400 flex items-center gap-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full" />
-            From {payments.filter(p => p.status === 'Paid').length} successful transactions
-          </div>
-        </div>
-      </div>
-
-      {/* Main Table */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="p-4 bg-gray-50 border-b border-gray-100 flex justify-between items-center">
           <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">All Transactions</span>
@@ -467,40 +371,22 @@ const PaymentsManager = () => {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-white border-b border-gray-100">
-                <th 
-                  className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-50 transition-colors"
-                  onClick={() => requestSort('invoiceNumber')}
-                >
+                <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-50 transition-colors" onClick={() => requestSort('invoiceNumber')}>
                   <div className="flex items-center">Invoice {getSortIcon('invoiceNumber')}</div>
                 </th>
-                <th 
-                  className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-50 transition-colors"
-                  onClick={() => requestSort('learnerName')}
-                >
+                <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-50 transition-colors" onClick={() => requestSort('learnerName')}>
                   <div className="flex items-center">Student {getSortIcon('learnerName')}</div>
                 </th>
-                <th 
-                  className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-50 transition-colors"
-                  onClick={() => requestSort('type')}
-                >
+                <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-50 transition-colors" onClick={() => requestSort('type')}>
                   <div className="flex items-center">Type {getSortIcon('type')}</div>
                 </th>
-                <th 
-                  className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-50 transition-colors"
-                  onClick={() => requestSort('amount')}
-                >
+                <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-50 transition-colors" onClick={() => requestSort('amount')}>
                   <div className="flex items-center">Amount {getSortIcon('amount')}</div>
                 </th>
-                <th 
-                  className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-50 transition-colors"
-                  onClick={() => requestSort('status')}
-                >
+                <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-50 transition-colors" onClick={() => requestSort('status')}>
                   <div className="flex items-center">Status {getSortIcon('status')}</div>
                 </th>
-                <th 
-                  className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-50 transition-colors"
-                  onClick={() => requestSort('createdAt')}
-                >
+                <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-50 transition-colors" onClick={() => requestSort('createdAt')}>
                   <div className="flex items-center">Date {getSortIcon('createdAt')}</div>
                 </th>
               </tr>
@@ -514,27 +400,17 @@ const PaymentsManager = () => {
                     <div className="text-xs text-gray-500">{payment.studentNumber}</div>
                   </td>
                   <td className="p-4">
-                    <span className={cn(
-                      "text-[10px] font-bold px-2 py-0.5 rounded-full",
-                      payment.type === 'Fee' ? "bg-blue-100 text-blue-700" : "bg-purple-100 text-purple-700"
-                    )}>
+                    <span className={cn('text-[10px] font-bold px-2 py-0.5 rounded-full', payment.type === 'Fee' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700')}>
                       {payment.type}
                     </span>
                   </td>
                   <td className="p-4 text-sm font-bold text-navy-900">R {payment.amount.toLocaleString()}</td>
                   <td className="p-4">
-                    <span className={cn(
-                      "text-[10px] font-bold px-2 py-0.5 rounded-full",
-                      payment.status === 'Paid' ? "bg-green-100 text-green-700" :
-                      payment.status === 'Failed' ? "bg-red-100 text-red-700" :
-                      "bg-yellow-100 text-yellow-700"
-                    )}>
+                    <span className={cn('text-[10px] font-bold px-2 py-0.5 rounded-full', payment.status === 'Paid' ? 'bg-green-100 text-green-700' : payment.status === 'Failed' ? 'bg-red-100 text-red-700' : 'bg-yellow-100 text-yellow-700')}>
                       {payment.status}
                     </span>
                   </td>
-                  <td className="p-4 text-sm text-gray-500">
-                    {new Date(payment.createdAt).toLocaleDateString()}
-                  </td>
+                  <td className="p-4 text-sm text-gray-500">{new Date(payment.createdAt).toLocaleDateString()}</td>
                 </tr>
               ))}
               {filteredAndSortedPayments.length === 0 && (
@@ -554,14 +430,18 @@ const DocumentsManager = () => {
   const [docs, setDocs] = useState<SchoolDocument[]>([]);
   const [isAdding, setIsAdding] = useState(false);
   const [newDoc, setNewDoc] = useState<Partial<SchoolDocument>>({
-    title: '', category: 'Letters', visibility: 'Published', grades: ['All'], pinned: false
+    title: '',
+    category: 'Letters',
+    visibility: 'Published',
+    grades: ['All'],
+    pinned: false,
   });
 
   useEffect(() => {
     const fetchDocs = async () => {
       const q = query(collection(db, 'documents'), orderBy('publishDate', 'desc'));
       const snapshot = await getDocs(q);
-      setDocs(snapshot.docs.map(d => ({ id: d.id, ...d.data() } as SchoolDocument)));
+      setDocs(snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as SchoolDocument)));
     };
     fetchDocs();
   }, []);
@@ -578,9 +458,9 @@ const DocumentsManager = () => {
   };
 
   const handleDelete = async (id: string) => {
-    if (confirm("Are you sure you want to delete this document?")) {
+    if (confirm('Are you sure you want to delete this document?')) {
       await deleteDoc(doc(db, 'documents', id));
-      setDocs(docs.filter(d => d.id !== id));
+      setDocs(docs.filter((d) => d.id !== id));
     }
   };
 
@@ -597,35 +477,39 @@ const DocumentsManager = () => {
         <div className="bg-white p-6 rounded-2xl shadow-lg border border-navy-100 space-y-4">
           <h3 className="font-bold text-navy-900">New Document</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input 
-              placeholder="Document Title" 
+            <input
+              placeholder="Document Title"
               value={newDoc.title}
-              onChange={e => setNewDoc({...newDoc, title: e.target.value})}
-              className="w-full px-4 py-2 rounded-lg border border-gray-200" 
-            />
-            <input 
-              placeholder="Document URL (e.g. Google Drive link)" 
-              value={newDoc.url}
-              onChange={e => setNewDoc({...newDoc, url: e.target.value})}
-              className="w-full px-4 py-2 rounded-lg border border-gray-200" 
-            />
-            <select 
-              value={newDoc.category}
-              onChange={e => setNewDoc({...newDoc, category: e.target.value})}
+              onChange={(e) => setNewDoc({ ...newDoc, title: e.target.value })}
               className="w-full px-4 py-2 rounded-lg border border-gray-200"
-            >
-              {['Letters', 'Notices', 'Policies', 'Newsletters', 'Forms', 'Timetables', 'Vacancies'].map(c => <option key={c} value={c}>{c}</option>)}
+            />
+            <input
+              placeholder="Document URL (e.g. Google Drive link)"
+              value={newDoc.url}
+              onChange={(e) => setNewDoc({ ...newDoc, url: e.target.value })}
+              className="w-full px-4 py-2 rounded-lg border border-gray-200"
+            />
+            <select value={newDoc.category} onChange={(e) => setNewDoc({ ...newDoc, category: e.target.value })} className="w-full px-4 py-2 rounded-lg border border-gray-200">
+              {['Letters', 'Notices', 'Policies', 'Newsletters', 'Forms', 'Timetables', 'Vacancies'].map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
             </select>
             <div className="flex items-center gap-4">
               <label className="flex items-center gap-2 text-sm">
-                <input type="checkbox" checked={newDoc.pinned} onChange={e => setNewDoc({...newDoc, pinned: e.target.checked})} />
+                <input type="checkbox" checked={newDoc.pinned} onChange={(e) => setNewDoc({ ...newDoc, pinned: e.target.checked })} />
                 Pinned
               </label>
             </div>
           </div>
           <div className="flex gap-3 pt-4">
-            <button onClick={handleAdd} className="px-6 py-2 bg-navy-900 text-white rounded-lg font-bold">Save</button>
-            <button onClick={() => setIsAdding(false)} className="px-6 py-2 bg-gray-100 text-gray-600 rounded-lg font-bold">Cancel</button>
+            <button onClick={handleAdd} className="px-6 py-2 bg-navy-900 text-white rounded-lg font-bold">
+              Save
+            </button>
+            <button onClick={() => setIsAdding(false)} className="px-6 py-2 bg-gray-100 text-gray-600 rounded-lg font-bold">
+              Cancel
+            </button>
           </div>
         </div>
       )}
@@ -641,19 +525,23 @@ const DocumentsManager = () => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
-            {docs.map((doc) => (
-              <tr key={doc.id} className="hover:bg-gray-50 transition-colors">
+            {docs.map((docItem) => (
+              <tr key={docItem.id} className="hover:bg-gray-50 transition-colors">
                 <td className="p-4">
                   <div className="text-sm font-bold text-navy-900 flex items-center gap-2">
-                    {doc.pinned && <Pin className="w-3 h-3 text-navy-400 fill-current" />}
-                    {doc.title}
+                    {docItem.pinned && <Pin className="w-3 h-3 text-navy-400 fill-current" />}
+                    {docItem.title}
                   </div>
                 </td>
-                <td className="p-4 text-sm text-gray-600">{doc.category}</td>
-                <td className="p-4 text-sm text-gray-600">{doc.publishDate}</td>
+                <td className="p-4 text-sm text-gray-600">{docItem.category}</td>
+                <td className="p-4 text-sm text-gray-600">{docItem.publishDate}</td>
                 <td className="p-4 flex gap-2">
-                  <a href={doc.url} target="_blank" rel="noreferrer" className="p-2 text-gray-400 hover:text-navy-900"><Eye className="w-5 h-5" /></a>
-                  <button onClick={() => handleDelete(doc.id!)} className="p-2 text-gray-400 hover:text-red-600"><Trash2 className="w-5 h-5" /></button>
+                  <a href={docItem.url} target="_blank" rel="noreferrer" className="p-2 text-gray-400 hover:text-navy-900">
+                    <Eye className="w-5 h-5" />
+                  </a>
+                  <button onClick={() => handleDelete(docItem.id!)} className="p-2 text-gray-400 hover:text-red-600">
+                    <Trash2 className="w-5 h-5" />
+                  </button>
                 </td>
               </tr>
             ))}
@@ -663,8 +551,6 @@ const DocumentsManager = () => {
     </div>
   );
 };
-
-// --- Main Admin Component ---
 
 export default function Admin() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -698,54 +584,49 @@ export default function Admin() {
     navigate('/admin');
   };
 
-  if (loading) return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="w-12 h-12 border-4 border-navy-900 border-t-transparent rounded-full animate-spin" />
-    </div>
-  );
-
-  if (!isAuthenticated) return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="max-w-md w-full bg-white p-12 rounded-3xl shadow-xl border border-gray-100 text-center">
-        <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-lg shadow-navy-900/10">
-          <img 
-            src="/image001.jpg" 
-            alt="Logo" 
-            className="w-16 h-16 object-contain"
-            referrerPolicy="no-referrer"
-          />
-        </div>
-        <h1 className="text-3xl font-bold text-navy-900 mb-4">Admin Portal</h1>
-        <p className="text-gray-500 mb-8">Enter the school passcode to access the management dashboard.</p>
-        
-        <form onSubmit={handleLogin} className="space-y-4">
-          <div className="relative">
-            <input 
-              type="password"
-              value={passcode}
-              onChange={(e) => setPasscode(e.target.value)}
-              placeholder="Enter Passcode"
-              className="w-full px-6 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl text-center text-lg font-bold tracking-widest focus:border-navy-900 focus:bg-white outline-none transition-all"
-              autoFocus
-            />
-          </div>
-          {error && <p className="text-red-500 text-xs font-bold">{error}</p>}
-          <button 
-            type="submit"
-            className="w-full py-4 bg-navy-900 text-white rounded-2xl font-bold hover:bg-navy-800 transition-all shadow-lg shadow-navy-900/20"
-          >
-            Access Dashboard
-          </button>
-        </form>
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="w-12 h-12 border-4 border-navy-900 border-t-transparent rounded-full animate-spin" />
       </div>
-    </div>
-  );
+    );
+  }
 
-  // Mock user for the sidebar
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+        <div className="max-w-md w-full bg-white p-12 rounded-3xl shadow-xl border border-gray-100 text-center">
+          <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-lg shadow-navy-900/10">
+            <img src="/Logo.jpg" alt="Logo" className="w-16 h-16 object-contain" referrerPolicy="no-referrer" />
+          </div>
+          <h1 className="text-3xl font-bold text-navy-900 mb-4">Admin Portal</h1>
+          <p className="text-gray-500 mb-8">Enter the school passcode to access the management dashboard.</p>
+
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div className="relative">
+              <input
+                type="password"
+                value={passcode}
+                onChange={(e) => setPasscode(e.target.value)}
+                placeholder="Enter Passcode"
+                className="w-full px-6 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl text-center text-lg font-bold tracking-widest focus:border-navy-900 focus:bg-white outline-none transition-all"
+                autoFocus
+              />
+            </div>
+            {error && <p className="text-red-500 text-xs font-bold">{error}</p>}
+            <button type="submit" className="w-full py-4 bg-navy-900 text-white rounded-2xl font-bold hover:bg-navy-800 transition-all shadow-lg shadow-navy-900/20">
+              Access Dashboard
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
   const mockUser = {
     displayName: 'School Admin',
     email: 'admin@powerofloveprimary.co.za',
-    photoURL: 'https://ui-avatars.com/api/?name=School+Admin&background=0f172a&color=fff'
+    photoURL: 'https://ui-avatars.com/api/?name=School+Admin&background=0f172a&color=fff',
   } as any;
 
   return (

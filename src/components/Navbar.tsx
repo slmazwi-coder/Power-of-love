@@ -26,12 +26,7 @@ export default function Navbar() {
         <div className="flex justify-between h-20">
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-3">
-              <img
-                src="/Public/Logo.jpg"
-                alt="Power of Love Logo"
-                className="w-12 h-12 object-contain"
-                referrerPolicy="no-referrer"
-              />
+              <img src="/Logo.jpg" alt="Power of Love Logo" className="w-12 h-12 object-contain" referrerPolicy="no-referrer" />
               <div className="flex flex-col">
                 <span className="text-navy-900 font-bold text-lg leading-tight uppercase tracking-tight">Power of Love</span>
                 <span className="text-gray-500 text-xs font-medium uppercase tracking-widest">Primary School</span>
@@ -84,11 +79,7 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
-            <Link
-              to="/admin"
-              onClick={() => setIsOpen(false)}
-              className="block px-3 py-2 rounded-md text-base font-medium text-white bg-navy-900 hover:bg-navy-800"
-            >
+            <Link to="/admin" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-white bg-navy-900 hover:bg-navy-800">
               Admin Portal
             </Link>
           </div>

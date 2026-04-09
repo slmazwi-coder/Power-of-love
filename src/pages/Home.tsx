@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 import { SCHOOL_INFO } from '../constants';
 
 const HERO_IMAGES = [
-  '/Public/Hero/FB_IMG_1775476078612.jpg',
-  '/Public/Hero/FB_IMG_1775476115838.jpg',
-  '/Public/Hero/FB_IMG_1775476175024.jpg',
-  '/Public/Hero/FB_IMG_1775476221490.jpg',
-  '/Public/Hero/FB_IMG_1775476260293.jpg',
+  '/Hero/FB_IMG_1775476078612.jpg',
+  '/Hero/FB_IMG_1775476115838.jpg',
+  '/Hero/FB_IMG_1775476175024.jpg',
+  '/Hero/FB_IMG_1775476221490.jpg',
+  '/Hero/FB_IMG_1775476260293.jpg',
 ];
 
 export default function Home() {
@@ -33,20 +33,20 @@ export default function Home() {
               alt="School Environment"
               className="w-full h-full object-cover opacity-40"
               referrerPolicy="no-referrer"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.6 }}
+              initial= opacity: 0 
+              animate= opacity: 1 
+              exit= opacity: 0 
+              transition= duration: 0.8, ease: 'easeOut' 
             />
           </AnimatePresence>
           <div className="absolute inset-0 bg-gradient-to-b from-navy-950/80 via-navy-950/60 to-navy-950" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: 'easeOut' }} className="max-w-4xl mx-auto">
-            <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2, duration: 0.5 }} className="mb-10 inline-block">
+          <motion.div initial= opacity: 0, y: 30  animate= opacity: 1, y: 0  transition= duration: 0.8, ease: 'easeOut'  className="max-w-4xl mx-auto">
+            <motion.div initial= opacity: 0, scale: 0.8  animate= opacity: 1, scale: 1  transition= delay: 0.2, duration: 0.5  className="mb-10 inline-block">
               <div className="relative">
-                <img src="/Public/Logo.jpg" alt="Power of Love Logo" className="relative w-28 h-28 object-contain bg-white p-3 rounded-3xl shadow-xl" referrerPolicy="no-referrer" />
+                <img src="/Logo.jpg" alt="Power of Love Logo" className="relative w-28 h-28 object-contain bg-white p-3 rounded-3xl shadow-xl" referrerPolicy="no-referrer" />
               </div>
             </motion.div>
 

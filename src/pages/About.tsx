@@ -37,7 +37,7 @@ export default function About() {
               </div>
             </div>
             <div className="relative">
-              <img src="/Public/FB_IMG_1775476115838.jpg" alt="School Activities" className="rounded-3xl shadow-2xl relative z-10" referrerPolicy="no-referrer" />
+              <img src="/FB_IMG_1775476115838.jpg" alt="School Activities" className="rounded-3xl shadow-2xl relative z-10" referrerPolicy="no-referrer" />
             </div>
           </div>
         </div>
@@ -47,7 +47,7 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden flex flex-col md:flex-row">
             <div className="md:w-1/3">
-              <img src="/Public/About/Principal/FB_IMG_1775476078612.jpg" alt="Principal" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              <img src="/About/Principal/FB_IMG_1775476078612.jpg" alt="Principal" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             </div>
             <div className="md:w-2/3 p-12 flex flex-col justify-center">
               <Quote className="w-12 h-12 text-navy-100 mb-6" />

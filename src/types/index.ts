@@ -30,6 +30,15 @@ export interface Consent {
   photoConsent: 'Yes' | 'No';
 }
 
+export interface ApplicationDocuments {
+  birthCertificateUrl: string;
+  reportCardUrl: string;
+  guardianIdUrl: string;
+  healthCertificateUrl: string;
+  doctorDeclarationUrl: string;
+  transferDocumentUrl?: string;
+}
+
 export interface Application {
   id?: string;
   applicationNumber: string;
@@ -38,7 +47,7 @@ export interface Application {
   learnerInfo: LearnerInfo;
   parentInfo: ParentInfo;
   healthHistory: HealthHistory;
-  documents: string[];
+  documents: ApplicationDocuments;
   consent: Consent;
   createdAt: string;
   notes?: string;

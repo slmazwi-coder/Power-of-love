@@ -9,9 +9,7 @@ export default function About() {
       <section className="bg-navy-900 py-24 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">About Our School</h1>
-          <p className="text-xl text-navy-200 max-w-2xl mx-auto font-light">
-            Discover the history, mission, and the dedicated team behind Power of Love Primary School.
-          </p>
+          <p className="text-xl text-navy-200 max-w-2xl mx-auto font-light">Discover the history, mission, and the dedicated team behind Power of Love Primary School.</p>
         </div>
       </section>
 
@@ -42,11 +40,7 @@ export default function About() {
               </div>
             </div>
             <div className="relative">
-              <img 
-                src="/FB_IMG_1775476115838.jpg" 
-                alt="School Activities" 
-                className="rounded-3xl shadow-2xl relative z-10"
-              />
+              <img src="/FB_IMG_1775476115838.jpg" alt="School Activities" className="rounded-3xl shadow-2xl relative z-10" />
             </div>
           </div>
         </div>
@@ -57,11 +51,7 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden flex flex-col md:flex-row">
             <div className="md:w-1/3">
-              <img 
-                src="/FB_IMG_1775476221490.jpg" 
-                alt="Principal" 
-                className="w-full h-full object-cover"
-              />
+              <img src="/About/Principal/FB_IMG_1775476078612.jpg" alt="Principal" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             </div>
             <div className="md:w-2/3 p-12 flex flex-col justify-center">
               <Quote className="w-12 h-12 text-navy-100 mb-6" />
@@ -86,7 +76,7 @@ export default function About() {
             <p className="text-gray-600">Meet the passionate team that makes Power of Love a special place to learn.</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-8">
-            {["1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B", "5A", "5B", "6A", "6B", "7A", "7B"].map(grade => (
+            {['1A', '1B', '2A', '2B', '3A', '3B', '4A', '4B', '5A', '5B', '6A', '6B', '7A', '7B'].map((grade) => (
               <div key={grade} className="text-center group">
                 <div className="w-full aspect-square bg-gray-100 rounded-2xl mb-4 overflow-hidden relative">
                   <div className="absolute inset-0 bg-navy-900/0 group-hover:bg-navy-900/10 transition-colors" />

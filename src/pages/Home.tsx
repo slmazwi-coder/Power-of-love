@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight, GraduationCap, BookOpen, Users, Trophy, CheckCircle, Sparkles } from 'lucide-react';
+import { motion } from 'motion/react';
+import { ArrowRight, BookOpen, Users, Trophy, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SCHOOL_INFO } from '../constants';
 
 const HERO_IMAGES = [
-  "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=1920",
-  "https://images.unsplash.com/photo-1523050335392-9bc567597280?auto=format&fit=crop&q=80&w=1920",
-  "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=1920",
-  "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&q=80&w=1920"
+  '/Hero/FB_IMG_1775476078612.jpg',
+  '/Hero/FB_IMG_1775476115838.jpg',
+  '/Hero/FB_IMG_1775476175024.jpg',
+  '/Hero/FB_IMG_1775476221490.jpg',
+  '/Hero/FB_IMG_1775476260293.jpg',
 ];
 
 export default function Home() {
@@ -27,43 +28,19 @@ export default function Home() {
       <section className="relative h-[80vh] flex items-center overflow-hidden bg-navy-950">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          <img 
-            src={HERO_IMAGES[0]} 
-            alt="School Environment" 
-            className="w-full h-full object-cover opacity-40"
-            referrerPolicy="no-referrer"
-          />
+          <img src={HERO_IMAGES[currentImage]} alt="School Environment" className="w-full h-full object-cover opacity-40" referrerPolicy="no-referrer" />
           <div className="absolute inset-0 bg-gradient-to-b from-navy-950/80 via-navy-950/60 to-navy-950" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="max-w-4xl mx-auto"
-          >
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              className="mb-10 inline-block"
-            >
+          <motion.div initial= opacity: 0, y: 30  animate= opacity: 1, y: 0  transition= duration: 0.8, ease: "easeOut"  className="max-w-4xl mx-auto">
+            <motion.div initial= opacity: 0, scale: 0.8  animate= opacity: 1, scale: 1  transition= delay: 0.2, duration: 0.5  className="mb-10 inline-block">
               <div className="relative">
-                <img 
-                  src="/image001.jpg" 
-                  alt="Power of Love Logo" 
-                  className="relative w-28 h-28 object-contain bg-white p-3 rounded-3xl shadow-xl"
-                  referrerPolicy="no-referrer"
-                />
+                <img src="/Logo.jpg" alt="Power of Love Logo" className="relative w-28 h-28 object-contain bg-white p-3 rounded-3xl shadow-xl" referrerPolicy="no-referrer" />
               </div>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-            >
+            <div>
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-bold uppercase tracking-widest mb-8">
                 Admissions Open for 2027
               </div>
@@ -79,21 +56,15 @@ export default function Home() {
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                <Link 
-                  to="/admissions" 
-                  className="px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-500 transition-all flex items-center gap-3 shadow-xl"
-                >
+                <Link to="/admissions" className="px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-500 transition-all flex items-center gap-3 shadow-xl">
                   <span>Apply Online Now</span>
                   <ArrowRight className="w-5 h-5" />
                 </Link>
-                <Link 
-                  to="/about" 
-                  className="px-10 py-5 bg-white/10 border border-white/20 text-white rounded-2xl font-bold hover:bg-white/20 transition-all"
-                >
+                <Link to="/about" className="px-10 py-5 bg-white/10 border border-white/20 text-white rounded-2xl font-bold hover:bg-white/20 transition-all">
                   Explore Our School
                 </Link>
               </div>
-            </motion.div>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -169,16 +140,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-2xl">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to join our school family?</h2>
-            <p className="text-navy-200 mb-8 text-lg">
-              Start your child's journey today with our easy online application process.
-            </p>
+            <p className="text-navy-200 mb-8 text-lg">Start your child's journey today with our easy online application process.</p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/admissions" className="px-8 py-4 bg-white text-navy-900 rounded-lg font-bold hover:bg-navy-50 transition-all text-center">
-                Apply Now
-              </Link>
-              <Link to="/contact" className="px-8 py-4 bg-navy-800 border border-navy-700 text-white rounded-lg font-bold hover:bg-navy-700 transition-all text-center">
-                Contact Admissions
-              </Link>
+              <Link to="/admissions" className="px-8 py-4 bg-white text-navy-900 rounded-lg font-bold hover:bg-navy-50 transition-all text-center">Apply Now</Link>
+              <Link to="/contact" className="px-8 py-4 bg-navy-800 border border-navy-700 text-white rounded-lg font-bold hover:bg-navy-700 transition-all text-center">Contact Admissions</Link>
             </div>
           </div>
         </div>

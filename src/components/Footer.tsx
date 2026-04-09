@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { SCHOOL_INFO } from '../constants';
-import { Mail, Phone, MapPin, GraduationCap } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -9,24 +9,18 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div className="col-span-1 md:col-span-1">
             <div className="flex items-center gap-3 mb-6">
-              <img 
-                src="/image001.jpg" 
-                alt="Power of Love Logo" 
+              <img
+                src="/Logo.jpg"
+                alt="Power of Love Logo"
                 className="w-12 h-12 object-contain brightness-0 invert"
                 referrerPolicy="no-referrer"
               />
               <div className="flex flex-col">
-                <span className="font-bold text-lg leading-tight uppercase tracking-tight">
-                  Power of Love
-                </span>
-                <span className="text-navy-300 text-xs font-medium uppercase tracking-widest">
-                  Primary School
-                </span>
+                <span className="font-bold text-lg leading-tight uppercase tracking-tight">Power of Love</span>
+                <span className="text-navy-300 text-xs font-medium uppercase tracking-widest">Primary School</span>
               </div>
             </div>
-            <p className="text-navy-200 text-sm leading-relaxed">
-              "{SCHOOL_INFO.motto}" - Providing excellence in education and character building for the future leaders of Kokstad.
-            </p>
+            <p className="text-navy-200 text-sm leading-relaxed">"{SCHOOL_INFO.motto}" - Providing excellence in education and character building for the future leaders of Kokstad.</p>
           </div>
 
           <div>

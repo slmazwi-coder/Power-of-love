@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, GraduationCap } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { SCHOOL_INFO } from '../constants';
 
 const NAV_LINKS = [
   { name: 'Home', path: '/' },
@@ -27,19 +26,15 @@ export default function Navbar() {
         <div className="flex justify-between h-20">
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-3">
-              <img 
-                src="/image001.jpg" 
-                alt="Power of Love Logo" 
+              <img
+                src="/Logo.jpg"
+                alt="Power of Love Logo"
                 className="w-12 h-12 object-contain"
                 referrerPolicy="no-referrer"
               />
               <div className="flex flex-col">
-                <span className="text-navy-900 font-bold text-lg leading-tight uppercase tracking-tight">
-                  Power of Love
-                </span>
-                <span className="text-gray-500 text-xs font-medium uppercase tracking-widest">
-                  Primary School
-                </span>
+                <span className="text-navy-900 font-bold text-lg leading-tight uppercase tracking-tight">Power of Love</span>
+                <span className="text-gray-500 text-xs font-medium uppercase tracking-widest">Primary School</span>
               </div>
             </Link>
           </div>
@@ -51,10 +46,8 @@ export default function Navbar() {
                 key={link.path}
                 to={link.path}
                 className={cn(
-                  "px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                  location.pathname === link.path
-                    ? "text-navy-900 bg-navy-50"
-                    : "text-gray-600 hover:text-navy-900 hover:bg-gray-50"
+                  'px-3 py-2 rounded-md text-sm font-medium transition-colors',
+                  location.pathname === link.path ? 'text-navy-900 bg-navy-50' : 'text-gray-600 hover:text-navy-900 hover:bg-gray-50'
                 )}
               >
                 {link.name}
@@ -90,10 +83,8 @@ export default function Navbar() {
                 to={link.path}
                 onClick={() => setIsOpen(false)}
                 className={cn(
-                  "block px-3 py-2 rounded-md text-base font-medium",
-                  location.pathname === link.path
-                    ? "text-navy-900 bg-navy-50"
-                    : "text-gray-600 hover:text-navy-900 hover:bg-gray-50"
+                  'block px-3 py-2 rounded-md text-base font-medium',
+                  location.pathname === link.path ? 'text-navy-900 bg-navy-50' : 'text-gray-600 hover:text-navy-900 hover:bg-gray-50'
                 )}
               >
                 {link.name}
